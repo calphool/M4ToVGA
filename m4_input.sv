@@ -1,0 +1,126 @@
+/*****************************************************************************************************
+**
+** m4_input monitor - watches hsync, vsync, video, dotclk from the TRS-80 Model 4 and puts pixels into
+** the dual port RAM that is being monitored by by the vga_out module
+**
+*****************************************************************************************************/
+
+
+typedef logic [17:0] TRUNC;
+typedef logic [23:0] TRUNC23;
+
+module m4_input (
+              hsync,
+				  vsync,
+				  video,
+				  waddr,
+				  dotclk,
+				  pixel_state,
+				  wren,
+				  leds0,leds1,leds2,leds3
+				  );
+				  
+// inputs and outputs				  
+		input hsync;
+		input vsync;
+		input video;
+		output logic [17:0] waddr;
+		input dotclk;
+		output logic pixel_state;
+		output logic wren;
+		output logic leds0,leds1,leds2,leds3;
+		
+// registers
+    reg [9:0] INCounterX;
+    reg [9:0] INCounterY;
+	 reg [23:0] ledsreg;
+	 reg [31:0] calc;
+	 reg dot_r;
+	 reg dot_r2;
+	 reg hsync_r;
+	 reg hsync_r2;
+	 reg vsync_r;
+	 reg vsync_r2;
+	 reg [63:0] nextline_r;
+	 reg [63:0] nextline_r2;
+	 reg [63:0] oldlinectr;
+ 
+initial
+begin
+    INCounterX <= 9'b0000000000;  // X counter for input dot clock
+	 INCounterY <= 9'b0000000000;  // Y counter for input lines
+	 ledsreg <= 0;                 // counter for register used to blink LED when dot clock is present
+	 wren <= 1;                    // dual port ram write enable pin (just leave it on)
+	 dot_r2 <= 1;                  // double flop register for video signal
+	 waddr[17:0] <= 0;             // dual port write address
+	 pixel_state <= 1;             // pixel state output that goes to D input on dual port ram
+    leds2 <= 1;                   // turn off LED2 (it's wired backward on Core Cyclone IV board 1 = 0ff, 0 = on)
+	 leds1 <= 1;                   // turn off LED1
+	 leds0 <= 1;                   // turn off LED0
+	 nextline_r <= 0;              // double flop register for counting horizontal lines
+	 nextline_r2 <= 0;             // double flop register for countering horizontal lines
+	 oldlinectr <= 0;              // control break register for horizontal lines
+end
+
+// probably don't need this any more...
+always @(posedge dotclk)
+begin
+    hsync_r2 <= hsync;
+	 hsync_r <= hsync_r2;
+	 vsync_r2 <= vsync;
+	 vsync_r <= vsync_r2;
+end
+
+
+// on the negative edge of hsync, add one to our line counter and double flop it to manage metastability
+always @(negedge hsync)
+begin
+    nextline_r <= nextline_r + 1;
+	 nextline_r2 = nextline_r;
+end
+
+
+
+// main loop
+always @(posedge dotclk, posedge video)
+begin
+	 if(video)   // when video input shows a high signal, put a 1 in dot_r2 register
+	    begin
+	         dot_r2 <= 1'b1;
+		 end
+	 else
+		 begin
+		    // output pin for dual port ram set to whatever is in dot_r2
+			 pixel_state = dot_r2;
+
+		    if(~vsync_r)   // if we are in the vsync period at the bottom of a frame, reset counters
+			     begin
+			        INCounterY <= 1'b0;
+			        INCounterX <= 1'b0;
+			     end
+			 else 
+			     // if the nextline_r2 register has turned over increment INCounterY, reset InCounterX, and change oldlinectr
+			     // this implements an "only once" reset for the end of each line
+				  if(nextline_r2 != oldlinectr)
+				      begin
+						    INCounterY <= INCounterY + 1'b1;
+						    INCounterX <= 1'b0;
+				          oldlinectr <= nextline_r2;						
+				      end
+				  else
+				      // if we're on the same line as last dot clock, calculate the address for the next pixel,
+						// put it into the write address of the dual port ram, increment INCounterX for the next 
+						// pixel, and reset the dot_r2 video register back to black
+			         begin
+			            calc = (640*INCounterY) + INCounterX;
+			            waddr[17:0] = TRUNC'(calc);
+			            INCounterX = INCounterX + 1'b1;
+             			dot_r2 <= 1'b0;
+					   end		  
+			 
+			 
+			 ledsreg = TRUNC23'(ledsreg + 1'b1); // increment the LED counter
+			 leds3 = ledsreg[20]; // the 20th bit of the register seems to toggle about every half second when the dot clock is around 10mhz
+	    end
+end
+endmodule
