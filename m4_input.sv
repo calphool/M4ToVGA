@@ -17,7 +17,8 @@ module m4_input (
 				  dotclk,
 				  pixel_state,
 				  wren,
-				  leds0,leds1,leds2,leds3
+				  leds0,leds1,leds2,leds3,
+				  highestDotCount
 				  );
 				  
 // inputs and outputs				  
@@ -29,6 +30,7 @@ module m4_input (
 		output logic pixel_state;
 		output logic wren;
 		output logic leds0,leds1,leds2,leds3;
+      output logic [9:0] highestDotCount;
 		
 // registers
     reg [9:0] INCounterX;
@@ -44,6 +46,7 @@ module m4_input (
 	 reg [63:0] nextline_r;
 	 reg [63:0] nextline_r2;
 	 reg [63:0] oldlinectr;
+
  
 initial
 begin
@@ -60,6 +63,7 @@ begin
 	 nextline_r <= 0;              // double flop register for counting horizontal lines
 	 nextline_r2 <= 0;             // double flop register for countering horizontal lines
 	 oldlinectr <= 0;              // control break register for horizontal lines
+	 highestDotCount <= 0;   // counter for determining dots per row
 end
 
 // probably don't need this any more...
@@ -95,7 +99,11 @@ begin
 
 		    if(~vsync_r)   // if we are in the vsync period at the bottom of a frame, reset counters
 			     begin
-			        INCounterY <= 1'b0;
+				     //if(highestDotCount < INCounterX)
+				     //    highestDotCount = INCounterX;
+					  highestDotCount = 0;
+			        
+					  INCounterY <= 1'b0;
 			        INCounterX <= 1'b0;
 			     end
 			 else 
@@ -103,16 +111,22 @@ begin
 			     // this implements an "only once" reset for the end of each line
 				  if(nextline_r2 != oldlinectr)
 				      begin
-						    INCounterY <= INCounterY + 1'b1;
-						    INCounterX <= 1'b0;
+				          if(highestDotCount < INCounterX)
+				              highestDotCount = INCounterX;
+						    INCounterX = 1'b0;
 				          oldlinectr <= nextline_r2;						
-				      end
+      				    INCounterY <= INCounterY + 1'b1;
+							 end
 				  else
 				      // if we're on the same line as last dot clock, calculate the address for the next pixel,
 						// put it into the write address of the dual port ram, increment INCounterX for the next 
 						// pixel, and reset the dot_r2 video register back to black
 			         begin
-			            calc = (640*INCounterY) + INCounterX;
+						   if(highestDotCount < 740)   // appears that it's 689 and 799 technically (80 column mode vs 64 column mode)
+			                calc = (800*INCounterY) + INCounterX + 16;
+						   else 
+							    calc = (800*(INCounterY-4)) + INCounterX - 71;
+
 			            waddr[17:0] = TRUNC'(calc);
 			            INCounterX = INCounterX + 1'b1;
              			dot_r2 <= 1'b0;

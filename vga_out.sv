@@ -52,26 +52,26 @@ begin
 		 if(inDisplayArea)
 		     begin
 			     // draw a border around the screen
-				  if(CounterY < 2 || CounterY > 478 || CounterX < 2 || CounterX > 638)
+				  if(CounterY < 1 || CounterY > 478 || CounterX < 2 || CounterX > 639)
 				      begin
-						    vr[0] <= 0;
+						    vr[0] <= 1;
 							 vg[0] <= 1;
-							 vb[0] <= 0;
-							 vr[1] <= 0;
+							 vb[0] <= 1;
+							 vr[1] <= 1;
 							 vg[1] <= 1;
-							 vb[1] <= 0;
-				          raddr[17:0] = TRUNC' (((CounterY / 2) * 640) + CounterX);
+							 vb[1] <= 1;
+				          raddr[17:0] = TRUNC' (((CounterY / 2) * 800) + CounterX);
 						 end
 				  else
 				       // light pixel based on what's in RAM
 						 begin
 						    vr[0] <= 0;
 						    vg[0] <= bit_from_ram;
-						    vb[0] <= 0;
+						    vb[0] <= bit_from_ram;
 						    vr[1] <= 0;
 						    vg[1] <= bit_from_ram;
-						    vb[1] <= 0;
-				          raddr[17:0] = TRUNC' (((CounterY / 2) * 640) + CounterX);
+						    vb[1] <= bit_from_ram;
+				          raddr[17:0] = TRUNC' (((CounterY / 2) * 800) + CounterX);
 						 end
 				  end
 		 else

@@ -42,9 +42,28 @@ Below you see a graphic of the top module that ties together all the submodules.
 
 ## Status
 
+2020, November 26
+
+Happy Thanksgiving for those in the USA!  It's not exactly a pleasant one for most folks as the "human-malware" continues to spread and 
+most folks are limiting their get-togethers in one form or another.
+
+Well, I made some tweaks to the code to deal with the fact that 80-column mode on the TRS-80 Model 4 has a different dot clock than 
+64 column mode.  Without these changes the right side of 80 column mode was chopped off.  At vertical blank, the code resets the 
+counter it uses to count how many dots there were per horizontal line, which allows the code to switch back and forth between modes.
+
+There's one remaining issue, which is that since 80 column mode uses the entire screen worth of pixels, when you switch back to 
+64 column mode there is sometimes garbage left on the right and left sides of the screen.  I'll have to work some kind of "one frame of 
+clearing the dual port ram" when a change is detected into the design.
+
+I also think I'd like to have some way to change the amount that the screen shifts left/right and maybe top/bottom.  Ideally it would 
+be a potentiometer or rotational encoder, though I'm not sure how you interface either of them to an FPGA and I'd rather not have to 
+introduce an ADC to the design if I can help it.  Ideally two additional pots/encoders would let you shrink or expand the screen as well,
+but that will probably have to wait a bit.  In any event, I'll be digging into how to potentiometers/encoders these into the design shortly.
+
 2020, November 23
 
 The current version works, but isn't complete.  I'll need to design a PCB next and finish its testing to produce a version 1.0.
+
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
