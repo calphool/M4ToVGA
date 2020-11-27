@@ -1,7 +1,7 @@
 **/atom_netlists
 **/db
 **/grepbox_tmp
-**/incroemental_db
+**/incremental_db
 output_file*.*
 **/output_files
 *.bak
