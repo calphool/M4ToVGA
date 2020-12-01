@@ -6,8 +6,9 @@
 *****************************************************************************************************/
 
 
-typedef logic [17:0] TRUNC;
+typedef logic [17:0] TRUNC17;
 typedef logic [23:0] TRUNC23;
+typedef logic [9:0] TRUNC9;
 
 module m4_input (
               hsync,
@@ -18,7 +19,8 @@ module m4_input (
 				  pixel_state,
 				  wren,
 				  leds0,leds1,leds2,leds3,
-				  highestDotCount
+				  outputLEDA,
+				  outputLEDB
 				  );
 				  
 // inputs and outputs				  
@@ -30,7 +32,8 @@ module m4_input (
 		output logic pixel_state;
 		output logic wren;
 		output logic leds0,leds1,leds2,leds3;
-      output logic [9:0] highestDotCount;
+      output logic [9:0] outputLEDA;
+		output logic [9:0] outputLEDB;
 		
 // registers
     reg [9:0] INCounterX;
@@ -43,10 +46,25 @@ module m4_input (
 	 reg hsync_r2;
 	 reg vsync_r;
 	 reg vsync_r2;
-	 reg [63:0] nextline_r;
-	 reg [63:0] nextline_r2;
-	 reg [63:0] oldlinectr;
+	 reg [31:0] nextline_r;
+	 reg [31:0] nextline_r2;
+	 reg [31:0] oldlinectr;
+	 reg [1:0]  state_reg;
+	 reg [23:0] memCtr;
+	 reg [9:0]  highestDotCount;
+	 reg screenMode;
 
+
+ // parms
+ 	 parameter NORMAL     = 2'b00;
+	 parameter MEMCLEAR   = 2'b01;
+	 parameter TRANSITION = 2'b10; 
+	 
+	 parameter SIXTYFOURCOLMODE = 1'b1;
+	 parameter EIGHTYCOLMODE = 1'b0;
+
+	 
+  
  
 initial
 begin
@@ -64,6 +82,11 @@ begin
 	 nextline_r2 <= 0;             // double flop register for countering horizontal lines
 	 oldlinectr <= 0;              // control break register for horizontal lines
 	 highestDotCount <= 0;   // counter for determining dots per row
+	 state_reg <= NORMAL;
+	 memCtr <= 0;
+	 outputLEDA <= 0;
+	 outputLEDB <= 0;
+	 screenMode <= SIXTYFOURCOLMODE;
 end
 
 // probably don't need this any more...
@@ -85,56 +108,101 @@ end
 
 
 
+always @(posedge dotclk)
+begin
+	 ledsreg = TRUNC23'(ledsreg + 1'b1); // increment the LED counter
+	 leds3 = ledsreg[20]; // the 20th bit of the register seems to toggle about every half second when the dot clock is around 10mhz	 
+	 
+	 outputLEDB[9] = state_reg[0]; // normal = off, memclear = on
+	 
+	 if(memCtr > 191999)
+	 begin
+			 state_reg = NORMAL;
+	 end
+	 
+	 outputLEDA = TRUNC9'(memCtr);
+							
+	 if(highestDotCount > 320) // ignore weird glitchy stuff
+	 begin
+		 if(highestDotCount > 720)
+		     begin
+			     if(screenMode != EIGHTYCOLMODE)
+				  begin
+				      state_reg <= MEMCLEAR;
+                  screenMode <= EIGHTYCOLMODE;
+				  end
+		     end
+		 else
+		     begin
+			     if(screenMode != SIXTYFOURCOLMODE)
+				  begin
+				      state_reg <= MEMCLEAR;
+    				   screenMode <= SIXTYFOURCOLMODE;
+				  end
+			  end
+	 end
+	 
+	 outputLEDB[8] = screenMode; // 64 col mode = on, 80 col mode = off;	 
+end
+
+
+
 // main loop
 always @(posedge dotclk, posedge video)
-begin
-	 if(video)   // when video input shows a high signal, put a 1 in dot_r2 register
-	    begin
-	         dot_r2 <= 1'b1;
-		 end
-	 else
 		 begin
-		    // output pin for dual port ram set to whatever is in dot_r2
-			 pixel_state = dot_r2;
+			 if(video)   // when video input shows a high signal, put a 1 in dot_r2 register
+				 begin
+						dot_r2 <= 1'b1;
+				 end
+			 else
+			    if(state_reg == NORMAL)
+					 begin
+						 // output pin for dual port ram set to whatever is in dot_r2
+						 pixel_state = dot_r2;
+						 leds2 <= 0;
+						 memCtr<= 0;
 
-		    if(~vsync_r)   // if we are in the vsync period at the bottom of a frame, reset counters
-			     begin
-				     //if(highestDotCount < INCounterX)
-				     //    highestDotCount = INCounterX;
-					  highestDotCount = 0;
-			        
-					  INCounterY <= 1'b0;
-			        INCounterX <= 1'b0;
-			     end
-			 else 
-			     // if the nextline_r2 register has turned over increment INCounterY, reset InCounterX, and change oldlinectr
-			     // this implements an "only once" reset for the end of each line
-				  if(nextline_r2 != oldlinectr)
-				      begin
-				          if(highestDotCount < INCounterX)
-				              highestDotCount = INCounterX;
-						    INCounterX = 1'b0;
-				          oldlinectr <= nextline_r2;						
-      				    INCounterY <= INCounterY + 1'b1;
-							 end
-				  else
-				      // if we're on the same line as last dot clock, calculate the address for the next pixel,
-						// put it into the write address of the dual port ram, increment INCounterX for the next 
-						// pixel, and reset the dot_r2 video register back to black
-			         begin
-						   if(highestDotCount < 740)   // appears that it's 689 and 799 technically (80 column mode vs 64 column mode)
-			                calc = (800*INCounterY) + INCounterX + 16;
-						   else 
-							    calc = (800*(INCounterY-4)) + INCounterX - 71;
+						 if(~vsync_r)   // if we are in the vsync period at the bottom of a frame, reset counters
+							  begin		  		
+								  highestDotCount = 1'b0;
+								  
+								  INCounterY <= 1'b0;
+								  INCounterX <= 1'b0;
+							  end
+						 else 
+							  // if the nextline_r2 register has turned over increment INCounterY, reset InCounterX, and change oldlinectr
+							  // this implements an "only once" reset for the end of each line
+							  if(nextline_r2 != oldlinectr)
+									begin
+										 if(highestDotCount < INCounterX)
+											  highestDotCount = INCounterX;
+											  										 
+										 INCounterX = 1'b0;
+										 oldlinectr <= nextline_r2;						
+										 INCounterY <= INCounterY + 1'b1;
+								   end
+							  else
+									// if we're on the same line as last dot clock, calculate the address for the next pixel,
+									// put it into the write address of the dual port ram, increment INCounterX for the next 
+									// pixel, and reset the dot_r2 video register back to black
+									begin
+										if(highestDotCount < 740)   // appears that it's 689 and 799 technically (80 column mode vs 64 column mode)
+											 calc = (800*INCounterY) + INCounterX + 16;
+										else 
+											 calc = (800*(INCounterY-8)) + INCounterX - 71;
 
-			            waddr[17:0] = TRUNC'(calc);
-			            INCounterX = INCounterX + 1'b1;
-             			dot_r2 <= 1'b0;
-					   end		  
-			 
-			 
-			 ledsreg = TRUNC23'(ledsreg + 1'b1); // increment the LED counter
-			 leds3 = ledsreg[20]; // the 20th bit of the register seems to toggle about every half second when the dot clock is around 10mhz
-	    end
-end
+										waddr[17:0] = TRUNC'(calc);
+										INCounterX = INCounterX + 1'b1;
+										dot_r2 <= 1'b0;
+									end		  
+					 end
+				 else 
+				     if(state_reg == MEMCLEAR)
+					  begin
+					      leds2 <= 0;
+					      pixel_state <= 0;
+							waddr[17:0] = TRUNC'(memCtr);
+							memCtr = memCtr + 1'b1;
+					  end
+		  end
 endmodule

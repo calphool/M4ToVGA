@@ -41,7 +41,8 @@ set_time_format -unit ns -decimal_places 3
 
 create_clock -name {external_clock} -period 20.000 -waveform { 0.000 10.000 } [get_ports {external_clock}]
 create_clock -name {m4_dotclk} -period 1.000 -waveform { 0.000 0.500 } [get_ports {m4_dotclk}]
-
+create_clock -name {m4_hsync} -period 1.0 [get_ports {m4_hsync}]
+create_clock -name {m4_video} -period 1.0 [get_ports {m4_video}]
 
 #**************************************************************
 # Create Generated Clock

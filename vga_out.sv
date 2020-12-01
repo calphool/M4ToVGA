@@ -52,7 +52,7 @@ begin
 		 if(inDisplayArea)
 		     begin
 			     // draw a border around the screen
-				  if(CounterY < 1 || CounterY > 478 || CounterX < 2 || CounterX > 639)
+				  if(CounterY < 2 || CounterY > 478)
 				      begin
 						    vr[0] <= 1;
 							 vg[0] <= 1;
