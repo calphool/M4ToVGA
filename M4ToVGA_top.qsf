@@ -59,17 +59,17 @@ set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_location_assignment PIN_23 -to external_clock
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to external_clock
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to m4_dotclk
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to vr[0]
+set_instance_assignment -name IO_STANDARD "3.0-V LVTTL" -to vr[0]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to m4_hsync
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to m4_video
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to m4_vsync
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to vb[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to vb[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to vg[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to vg[0]
+set_instance_assignment -name IO_STANDARD "3.0-V LVTTL" -to vb[1]
+set_instance_assignment -name IO_STANDARD "3.0-V LVTTL" -to vb[0]
+set_instance_assignment -name IO_STANDARD "3.0-V LVTTL" -to vg[1]
+set_instance_assignment -name IO_STANDARD "3.0-V LVTTL" -to vg[0]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to vga_hsync
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to vga_vsync
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to vr[1]
+set_instance_assignment -name IO_STANDARD "3.0-V LVTTL" -to vr[1]
 set_location_assignment PIN_127 -to m4_dotclk
 set_location_assignment PIN_136 -to m4_hsync
 set_location_assignment PIN_129 -to m4_video
@@ -89,10 +89,10 @@ set_instance_assignment -name PCI_IO ON -to m4_dotclk
 set_instance_assignment -name PCI_IO ON -to m4_hsync
 set_instance_assignment -name PCI_IO ON -to m4_video
 set_instance_assignment -name PCI_IO ON -to m4_vsync
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to vb[1]
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to vb[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to vb[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to vb[0]
 set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to vg[1]
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to vg[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to vg[0]
 set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to vga_hsync
 set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to vga_vsync
 set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to vr[1]
@@ -195,4 +195,28 @@ set_instance_assignment -name SLEW_RATE 0 -to OutputLEDB[8]
 set_instance_assignment -name SLEW_RATE 0 -to OutputLEDB[7]
 set_instance_assignment -name SLEW_RATE 0 -to OutputLEDB[6]
 set_instance_assignment -name SLEW_RATE 0 -to OutputLEDB[5]
+set_location_assignment PIN_55 -to FG_R1
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FG_R1
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FG_R0
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FG_G1
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FG_G0
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FG_B1
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FG_B0
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to BG_R1
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to BG_R0
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to BG_G1
+set_instance_assignment -name IO_STANDARD "3.0-V LVTTL" -to BG_G0
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to BG_B1
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to BG_B0
+set_location_assignment PIN_53 -to FG_R0
+set_location_assignment PIN_51 -to FG_G1
+set_location_assignment PIN_49 -to FG_G0
+set_location_assignment PIN_44 -to FG_B1
+set_location_assignment PIN_42 -to FG_B0
+set_location_assignment PIN_126 -to BG_B0
+set_location_assignment PIN_128 -to BG_B1
+set_location_assignment PIN_132 -to BG_G0
+set_location_assignment PIN_135 -to BG_G1
+set_location_assignment PIN_137 -to BG_R0
+set_location_assignment PIN_141 -to BG_R1
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
