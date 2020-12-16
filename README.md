@@ -44,6 +44,9 @@ Below you see a graphic of the top module that ties together all the submodules.
 
 2020, December 15
 
+I did eventually figure out how to clear the BRAM when the mode switches from 80 to 64 column mode.  It took way more work than I expected.  The solution was 
+relatively simple, but getting there was not.
+
 Got the PCB, populated it.  Worked as intended.  I'm working on another revision though because I don't care for a few of the placement decisions I made.
 I also need to add a pin header so that the board can be used on something other than the Model 3/4 AMP connector.  I also realized that soldering 0603 LEDs 
 is a pain in the neck, so I switched all those out of small through-hole LEDs.
