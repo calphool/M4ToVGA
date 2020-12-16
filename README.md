@@ -42,6 +42,14 @@ Below you see a graphic of the top module that ties together all the submodules.
 
 ## Status
 
+2020, December 15
+
+Got the PCB, populated it.  Worked as intended.  I'm working on another revision though because I don't care for a few of the placement decisions I made.
+I also need to add a pin header so that the board can be used on something other than the Model 3/4 AMP connector.  I also realized that soldering 0603 LEDs 
+is a pain in the neck, so I switched all those out of small through-hole LEDs.
+
+![Version 1 PCB](img/M4ToVGA_BoardPic.jpg?raw=true "Version 1 PCB")
+
 2020, November 26
 
 Happy Thanksgiving for those in the USA!  It's not exactly a pleasant one for most folks as the "human-malware" continues to spread and 
