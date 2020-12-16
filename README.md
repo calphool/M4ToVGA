@@ -51,6 +51,12 @@ Got the PCB, populated it.  Worked as intended.  I'm working on another revision
 I also need to add a pin header so that the board can be used on something other than the Model 3/4 AMP connector.  I also realized that soldering 0603 LEDs 
 is a pain in the neck, so I switched all those out of small through-hole LEDs.
 
+I don't care for the DOT CLK situation.  I'd like to get rid of the dot clock, but I haven't come up with a solution yet.
+
+I've also been digging into DVI/HDMI via FPGA.  There is apparently an open source HDMI implementation now, so the question is will it work for a Cyclone IV
+board?  It looks like it might.  How cool would it be to have simultaneous VGA and HDMI out?  Might be a pipe dream, but it's something I'll keep digging into.
+We'll see...
+
 ![Version 1 PCB](img/M4ToVGA_BoardPic.jpg?raw=true "Version 1 PCB")
 
 2020, November 26
