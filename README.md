@@ -49,7 +49,7 @@ relatively simple, but getting there was not.
 
 Got the PCB, populated it.  Worked as intended.  I'm working on another revision though because I don't care for a few of the placement decisions I made.
 I also need to add a pin header so that the board can be used on something other than the Model 3/4 AMP connector.  I also realized that soldering 0603 LEDs 
-is a pain in the neck, so I switched all those out of small through-hole LEDs.
+is a pain in the neck, so I switched all those out to small through-hole LEDs.
 
 I don't care for the DOT CLK situation.  I'd like to get rid of the dot clock, but I haven't come up with a solution yet.
 
