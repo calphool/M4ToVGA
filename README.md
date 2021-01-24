@@ -42,7 +42,7 @@ Below you see a graphic of the top module that ties together all the submodules.
 
 ## Status
 
-2021, January 20
+**2021, January 20**
 
 I have begun shipping the first few copies of the 1.1 VGA board, which includes some location fixes for components.  There is one remaining "slighly off"
 location for the power pins for the FPGA, but it is close enough that if I solder the pins after the two boards are mated it still works okay.  I 
@@ -60,7 +60,7 @@ just not as easy as taking the dot clock from the motherboard and using it to sy
 have subtle issues that require options and menu systems to work around.  For now the production version of the board still requires the dot clock.
 
 
-2020, December 15
+**2020, December 15**
 
 I did eventually figure out how to clear the BRAM when the mode switches from 80 to 64 column mode.  It took way more work than I expected.  The solution was 
 relatively simple, but getting there was not.
@@ -77,7 +77,7 @@ We'll see...
 
 ![Version 1 PCB](img/M4ToVGA_BoardPic.jpg?raw=true "Version 1 PCB")
 
-2020, November 26
+**2020, November 26**
 
 Happy Thanksgiving for those in the USA!  It's not exactly a pleasant one for most folks as the "human-malware" continues to spread and 
 most folks are limiting their get-togethers in one form or another.
@@ -95,7 +95,7 @@ be a potentiometer or rotational encoder, though I'm not sure how you interface 
 introduce an ADC to the design if I can help it.  Ideally two additional pots/encoders would let you shrink or expand the screen as well,
 but that will probably have to wait a bit.  In any event, I'll be digging into how to potentiometers/encoders these into the design shortly.
 
-2020, November 23
+**2020, November 23**
 
 The current version works, but isn't complete.  I'll need to design a PCB next and finish its testing to produce a version 1.0.
 
