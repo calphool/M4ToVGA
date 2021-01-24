@@ -24,7 +24,7 @@ The code has five main blocks (or modules).
 
 ## Details
 
-Below you will see oscilloscope pictures showing the hsync, vsync, and video traces from a TRS-80 Model 4.  
+Below you will see oscilloscope pictures showing the hsync, vsync, and video traces from a TRS-80 Model 4 (ignore the "Model 3" text, it's a typo).  
 
 ![Oscilloscope Screen 1](img/OscilloscopeScreen1.jpg?raw=true "Oscilloscope Screen 1")
 
@@ -41,6 +41,24 @@ Below you see a graphic of the top module that ties together all the submodules.
 ![Top Module](img/TopModule.pdf?raw=true "Top Module")
 
 ## Status
+
+2021, January 20
+
+I have begun shipping the first few copies of the 1.1 VGA board, which includes some location fixes for components.  There is one remaining "slighly off"
+location for the power pins for the FPGA, but it is close enough that if I solder the pins after the two boards are mated it still works okay.  I 
+will fix it in the 1.2 version of the board if I get through the 20+ 1.1 boards I have.  I may also do something different with the location of the 
+power regulators.  They are oriented vertically toward the bottom of the board, which is a little non-aesthetic since they stand up like tombstones.
+
+I want to get the board out to a few people before opening the flood gates.  I'm well aware that it has only been tested on my M4, and so as people 
+begin trying it on M2s and M3s, I want to see what the results are.  It *appears* that it should work just fine, and may even work on an M1 with the 
+right signal placement, but I'm well aware that with hardware you never know for sure until you've actually seen the results.
+
+I did some experimentation with providing my own on-board clock and ignoring the dot clock from the TRS-80, which produced something that *kind of* works.  
+Unfortunately I would need to oversample the signals considerably (probably at least 10X) and then come up with an algorithm for using the oversampled 
+signals, and at this point that's just a bit beyond my Verilog skills.  I'll probably keep toying around with it over time.  It's clearly possible, but 
+just not as easy as taking the dot clock from the motherboard and using it to synchronize the incoming video.  I suspect this is why many -ToVGA boards 
+have subtle issues that require options and menu systems to work around.  For now the production version of the board still requires the dot clock.
+
 
 2020, December 15
 
