@@ -53,8 +53,8 @@ I want to get the board out to a few people before opening the flood gates.  I'm
 begin trying it on M2s and M3s, I want to see what the results are.  It *appears* that it should work just fine, and may even work on an M1 with the 
 right signal placement, but I'm well aware that with hardware you never know for sure until you've actually seen the results.
 
-I did some experimentation with providing my own on-board clock and ignoring the dot clock from the TRS-80, which produced something that *kind of* works.  
-Unfortunately I would need to oversample the signals considerably (probably at least 10X) and then come up with an algorithm for using the oversampled 
+I did some experimentation with providing my own on-board clock and ignoring the dot clock from the TRS-80, which produced something that *kind of* works. I 
+would need to oversample the signals considerably (probably at least 10X) and then come up with an algorithm for using the oversampled 
 signals, and at this point that's just a bit beyond my Verilog skills.  I'll probably keep toying around with it over time.  It's clearly possible, but 
 just not as easy as taking the dot clock from the motherboard and using it to synchronize the incoming video.  I suspect this is why many -ToVGA boards 
 have subtle issues that require options and menu systems to work around.  For now the production version of the board still requires the dot clock.
