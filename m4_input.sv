@@ -117,7 +117,8 @@ begin
 	 leds3 = ledsreg[20];                          // the 20th bit of the register seems to toggle about every half 
 	                                               // second when the dot clock is around 10mhz	 
 	 
-	 outputLEDB[9] = state_reg[0];                 // normal = off, memclear = on
+	 //outputLEDB[9] = state_reg[0];                 // normal = off, memclear = on
+	 outputLEDB = highestDotCount;
 	 
 	 // once memCtr clears all 192000 bytes, go back to normal mode
 	 if(memCtr > 191999) 
@@ -149,7 +150,7 @@ begin
 			  end
 	 end
 	 
-	 outputLEDB[8] = screenMode;                   // 64 col mode = on, 80 col mode = off;	 
+	 //outputLEDB[8] = screenMode;                   // 64 col mode = on, 80 col mode = off;	 
 end
 
 
