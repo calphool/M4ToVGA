@@ -22,7 +22,8 @@ module m4_input (
 				  wren,
 				  leds0,leds1,leds2,leds3,
 				  outputLEDA,
-				  outputLEDB
+				  outputLEDB,
+				  H_0, H_1, H_2, H_3, H_4, H_5
 				  );
 				  
 // inputs and outputs				  
@@ -36,6 +37,7 @@ module m4_input (
 		output logic leds0,leds1,leds2,leds3;
       output logic [9:0] outputLEDA;
 		output logic [9:0] outputLEDB;
+		input H_0, H_1, H_2, H_3, H_4, H_5;
 		
 // registers
     reg [9:0] INCounterX;
@@ -48,6 +50,8 @@ module m4_input (
 	 reg hsync_r2;
 	 reg vsync_r;
 	 reg vsync_r2;
+	 reg h0_r,h1_r,h2_r,h3_r,h4_r,h5_r;
+	 reg h0_r2,h1_r2,h2_r2,h3_r2,h4_r2,h5_r2;
 	 reg [31:0] nextline_r;
 	 reg [31:0] nextline_r2;
 	 reg [31:0] oldlinectr;
@@ -92,13 +96,27 @@ begin
 end
 
 
-// probably don't need this any more... double flopping of sync signals
+// double flopping of some input signals
 always @(posedge dotclk)
 begin
     hsync_r2 <= hsync;
 	 hsync_r <= hsync_r2;
 	 vsync_r2 <= vsync;
 	 vsync_r <= vsync_r2;
+	 
+	 h0_r <= H_0;
+	 h1_r <= H_1;
+	 h2_r <= H_2;
+	 h3_r <= H_3;
+	 h4_r <= H_4;
+	 h5_r <= H_5;
+	 
+	 h0_r2 <= h0_r;
+	 h1_r2 <= h1_r;
+	 h2_r2 <= h2_r;
+	 h3_r2 <= h3_r;
+	 h4_r2 <= h4_r;
+	 h5_r2 <= h5_r;	 
 end
 
 
@@ -126,8 +144,13 @@ begin
 			 state_reg = NORMAL;
 	 end
 	 
-	 outputLEDA = TRUNC9'(memCtr);                 // put memCtr in LED A indicator (normally 0)
-							
+	 //outputLEDA = TRUNC9'(memCtr);                 // put memCtr in LED A indicator (normally 0)
+	 outputLEDA[0] = h0_r2;
+    outputLEDA[1] = h1_r2;
+    outputLEDA[2] = h2_r2;
+    outputLEDA[3] = h3_r2;
+    outputLEDA[4] = h4_r2;
+    outputLEDA[5] = h5_r2;	 
 							
 	 // this code turns on MEMCLEAR mode when we are switching between 64 and 80 column modes
 	 if(highestDotCount > 320)                     // ignore weird glitchy stuff
