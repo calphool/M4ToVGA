@@ -42,7 +42,7 @@ Below you see a graphic of the top module that ties together all the submodules.
 
 ## Status
 
-##2021, January 26**
+**2021, January 26**
 
 Well folks have started receiving the 1.1 boards.  Unfortunately two of the use cases weren't for Model 4s, so we're experiencing some 
 interesting "features."  As a result I've altered the code so that one of the dip switches is now a "horizontal offset" setting.  
