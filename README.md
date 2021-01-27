@@ -42,6 +42,14 @@ Below you see a graphic of the top module that ties together all the submodules.
 
 ## Status
 
+##2021, January 26**
+
+Well folks have started receiving the 1.1 boards.  Unfortunately two of the use cases weren't for Model 4s, so we're experiencing some 
+interesting "features."  As a result I've altered the code so that one of the dip switches is now a "horizontal offset" setting.  
+Hopefully that will get at least one of the "accidental beta testers" working.  The other one is experiencing that symptom *and* another 
+one, which seems almost certainly related to the dot clock somehow, but precisely what it's doing is tough to debug remotely.  We'll 
+probably figure it out eventually but it may take a while.
+
 **2021, January 20**
 
 I have begun shipping the first few copies of the 1.1 VGA board, which includes some location fixes for components.  There is one remaining "slighly off"
