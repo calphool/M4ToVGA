@@ -44,6 +44,7 @@ module m4_input (
     reg [9:0] INCounterY;
 	 reg [23:0] ledsreg;
 	 reg [31:0] calc;
+	 reg [9:0] offsetc;
 	 reg dot_r;
 	 reg dot_r2;
 	 reg hsync_r;
@@ -52,6 +53,7 @@ module m4_input (
 	 reg vsync_r2;
 	 reg h0_r,h1_r,h2_r,h3_r,h4_r,h5_r;
 	 reg h0_r2,h1_r2,h2_r2,h3_r2,h4_r2,h5_r2;
+	 reg [5:0] hvalue;
 	 reg [31:0] nextline_r;
 	 reg [31:0] nextline_r2;
 	 reg [31:0] oldlinectr;
@@ -93,6 +95,7 @@ begin
 	 outputLEDA <= 0;                // LED A indicator (10 bits)
 	 outputLEDB <= 0;                // LED B indicator (10 bits)
 	 screenMode <= SIXTYFOURCOLMODE; // screen mode
+	 offsetc <= 0;
 end
 
 
@@ -117,6 +120,22 @@ begin
 	 h3_r2 <= h3_r;
 	 h4_r2 <= h4_r;
 	 h5_r2 <= h5_r;	 
+	 
+	 hvalue[5] <= h5_r2;
+	 hvalue[4] <= h4_r2;
+	 hvalue[3] <= h3_r2;
+	 hvalue[2] <= h2_r2;
+	 hvalue[1] <= h1_r2;
+	 hvalue[0] <= h0_r2;
+	 
+	 if(hvalue >=32)
+	     begin
+		      offsetc = (hvalue - 32) << 2;
+		  end
+    else
+	     begin
+		      offsetc = (32 - hvalue) << 2;
+		  end
 end
 
 
@@ -144,13 +163,7 @@ begin
 			 state_reg = NORMAL;
 	 end
 	 
-	 //outputLEDA = TRUNC9'(memCtr);                 // put memCtr in LED A indicator (normally 0)
-	 outputLEDA[0] = h0_r2;
-    outputLEDA[1] = h1_r2;
-    outputLEDA[2] = h2_r2;
-    outputLEDA[3] = h3_r2;
-    outputLEDA[4] = h4_r2;
-    outputLEDA[5] = h5_r2;	 
+	 outputLEDA = hvalue;
 							
 	 // this code turns on MEMCLEAR mode when we are switching between 64 and 80 column modes
 	 if(highestDotCount > 320)                     // ignore weird glitchy stuff
@@ -214,11 +227,18 @@ always @(posedge dotclk, posedge video)
 									// if we're on the same line as last dot clock, calculate the address for the next pixel,
 									// put it into the write address of the dual port ram, increment INCounterX for the next 
 									// pixel, and reset the dot_r2 video register back to black
-									begin
+									begin									
 										if(highestDotCount < 720)   // appears that it's 639 and 799 technically (80 column mode vs 64 column mode)
 											 calc = (800*INCounterY) + INCounterX + 16;       // 64 column mode shifting
 										else 
-											 calc = (800*(INCounterY-8)) + INCounterX - 71;   // 80 column mode shifting
+										    if(hvalue >= 32)
+										        begin
+											         calc = (800*(INCounterY-8)) + INCounterX + offsetc;   // 80 column mode shifting
+											     end
+											 else
+											     begin
+											         calc = (800*(INCounterY-8)) + INCounterX - offsetc;   // 80 column mode shifting
+												  end
 
 										waddr[17:0] = TRUNC'(calc);                          // set write address in dual port ram
 										INCounterX = INCounterX + 1'b1;                      // increment X counter
