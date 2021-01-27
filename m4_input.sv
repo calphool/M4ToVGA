@@ -128,7 +128,7 @@ begin
 	 hvalue[1] <= h1_r2;
 	 hvalue[0] <= h0_r2;
 	 
-	 if(hvalue >=32)
+	 if(hvalue >=32)   // this is the code that sets the value of the offset dipswitch
 	     begin
 		      offsetc = (hvalue - 32) << 2;
 		  end
@@ -233,11 +233,11 @@ always @(posedge dotclk, posedge video)
 										else 
 										    if(hvalue >= 32)
 										        begin
-											         calc = (800*(INCounterY-8)) + INCounterX + offsetc;   // 80 column mode shifting
+											         calc = (800*(INCounterY-8)) + INCounterX + offsetc;   // 80 column mode shifting (adding the offset in this case)
 											     end
 											 else
 											     begin
-											         calc = (800*(INCounterY-8)) + INCounterX - offsetc;   // 80 column mode shifting
+											         calc = (800*(INCounterY-8)) + INCounterX - offsetc;   // 80 column mode shifting (subtracting the offset in this case)
 												  end
 
 										waddr[17:0] = TRUNC'(calc);                          // set write address in dual port ram
