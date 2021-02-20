@@ -129,6 +129,36 @@ set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to LEDS1
 set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to LEDS0
 set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
 set_global_assignment -name SDC_FILE M4ToVGA_top.sdc
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to highestDotCount[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to highestDotCount[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to highestDotCount[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to highestDotCount[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to highestDotCount[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to highestDotCount[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to highestDotCount[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to highestDotCount[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to highestDotCount[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to highestDotCount[0]
+set_location_assignment PIN_60 -to highestDotCount[9]
+set_location_assignment PIN_65 -to highestDotCount[8]
+set_location_assignment PIN_67 -to highestDotCount[7]
+set_location_assignment PIN_69 -to highestDotCount[6]
+set_location_assignment PIN_71 -to highestDotCount[5]
+set_location_assignment PIN_73 -to highestDotCount[4]
+set_location_assignment PIN_75 -to highestDotCount[3]
+set_location_assignment PIN_77 -to highestDotCount[2]
+set_location_assignment PIN_83 -to highestDotCount[1]
+set_location_assignment PIN_85 -to highestDotCount[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to highestDotCount[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to highestDotCount[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to highestDotCount[2]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to highestDotCount[3]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to highestDotCount[4]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to highestDotCount[5]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to highestDotCount[6]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to highestDotCount[7]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to highestDotCount[8]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to highestDotCount[9]
 set_global_assignment -name SYSTEMVERILOG_FILE LEDInverter.sv
 set_location_assignment PIN_87 -to OutputLEDB[9]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to OutputLEDB[9]
@@ -165,64 +195,34 @@ set_instance_assignment -name SLEW_RATE 0 -to OutputLEDB[8]
 set_instance_assignment -name SLEW_RATE 0 -to OutputLEDB[7]
 set_instance_assignment -name SLEW_RATE 0 -to OutputLEDB[6]
 set_instance_assignment -name SLEW_RATE 0 -to OutputLEDB[5]
-set_location_assignment PIN_126 -to BG_B
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to BG_B
-set_location_assignment PIN_132 -to BG_R
-set_location_assignment PIN_128 -to BG_G
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to BG_G
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to BG_R
-set_location_assignment PIN_141 -to FG_R
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FG_R
-set_location_assignment PIN_137 -to FG_G
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FG_G
-set_location_assignment PIN_135 -to FG_B
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FG_B
-set_location_assignment PIN_42 -to H_0
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to H_0
-set_location_assignment PIN_44 -to H_1
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to H_1
-set_location_assignment PIN_49 -to H_2
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to H_2
-set_location_assignment PIN_51 -to H_3
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to H_3
-set_location_assignment PIN_53 -to H_4
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to H_4
-set_location_assignment PIN_55 -to H_5
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to H_5
+set_location_assignment PIN_55 -to FG_R1
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FG_R1
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FG_R0
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FG_G1
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FG_G0
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FG_B1
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FG_B0
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to BG_R1
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to BG_R0
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to BG_G1
+set_instance_assignment -name IO_STANDARD "3.0-V LVTTL" -to BG_G0
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to BG_B1
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to BG_B0
+set_location_assignment PIN_53 -to FG_R0
+set_location_assignment PIN_51 -to FG_G1
+set_location_assignment PIN_49 -to FG_G0
+set_location_assignment PIN_44 -to FG_B1
+set_location_assignment PIN_42 -to FG_B0
+set_location_assignment PIN_126 -to BG_B0
+set_location_assignment PIN_128 -to BG_B1
+set_location_assignment PIN_132 -to BG_G0
+set_location_assignment PIN_135 -to BG_G1
+set_location_assignment PIN_137 -to BG_R0
+set_location_assignment PIN_141 -to BG_R1
 set_instance_assignment -name SLEW_RATE 0 -to vb[1]
-set_instance_assignment -name SLEW_RATE 0 -to vr[1]
-set_instance_assignment -name SLEW_RATE 0 -to vg[1]
 set_instance_assignment -name SLEW_RATE 0 -to vb[0]
-set_instance_assignment -name SLEW_RATE 0 -to vr[0]
+set_instance_assignment -name SLEW_RATE 0 -to vg[1]
 set_instance_assignment -name SLEW_RATE 0 -to vg[0]
-set_location_assignment PIN_60 -to OutputLEDA[9]
-set_location_assignment PIN_65 -to OutputLEDA[8]
-set_location_assignment PIN_67 -to OutputLEDA[7]
-set_location_assignment PIN_69 -to OutputLEDA[6]
-set_location_assignment PIN_71 -to OutputLEDA[5]
-set_location_assignment PIN_73 -to OutputLEDA[4]
-set_location_assignment PIN_75 -to OutputLEDA[3]
-set_location_assignment PIN_77 -to OutputLEDA[2]
-set_location_assignment PIN_83 -to OutputLEDA[1]
-set_location_assignment PIN_85 -to OutputLEDA[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to OutputLEDA[9]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to OutputLEDA[8]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to OutputLEDA[7]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to OutputLEDA[6]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to OutputLEDA[5]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to OutputLEDA[4]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to OutputLEDA[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to OutputLEDA[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to OutputLEDA[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to OutputLEDA[0]
-set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to OutputLEDA[9]
-set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to OutputLEDA[8]
-set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to OutputLEDA[7]
-set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to OutputLEDA[6]
-set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to OutputLEDA[5]
-set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to OutputLEDA[4]
-set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to OutputLEDA[3]
-set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to OutputLEDA[2]
-set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to OutputLEDA[1]
-set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to OutputLEDA[0]
+set_instance_assignment -name SLEW_RATE 0 -to vr[1]
+set_instance_assignment -name SLEW_RATE 0 -to vr[0]
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
