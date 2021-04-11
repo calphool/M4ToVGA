@@ -55,6 +55,7 @@ module m4_input (
 	 reg [23:0] memCtr;
 	 reg [9:0]  highestDotCount;
 	 reg screenMode;
+	 reg [3:0] kitctr;
 
 
  // parms
@@ -89,6 +90,7 @@ begin
 	 outputLEDA <= 0;                // LED A indicator (10 bits)
 	 outputLEDB <= 0;                // LED B indicator (10 bits)
 	 screenMode <= SIXTYFOURCOLMODE; // screen mode
+	 kitctr <= 3'b0001;
 end
 
 
@@ -113,6 +115,17 @@ begin
 end
 
 
+always @(posedge ledsreg[20]) begin
+    
+	 kitctr <= kitctr + 1;
+	 if(kitctr > 9)
+	     kitctr <= 0;
+		  
+	 outputLEDA <= TRUNC9'(1 << kitctr);
+end
+
+
+
 // this code handles 80/64 column mode switching, MEMCLEAR counter roll over, and setting indicator LEDs
 always @(posedge dotclk)
 begin
@@ -129,7 +142,7 @@ begin
 			 state_reg = NORMAL;
 	 end
 	 
-	 outputLEDA = TRUNC9'(memCtr);                 // put memCtr in LED A indicator (normally 0)
+	 //outputLEDA = TRUNC9'(memCtr);                 // put memCtr in LED A indicator (normally 0)
 							
 							
 	 // this code turns on MEMCLEAR mode when we are switching between 64 and 80 column modes

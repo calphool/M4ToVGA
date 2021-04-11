@@ -50,6 +50,9 @@ create_clock -name {m4_video} -period 1.0 [get_ports {m4_video}]
 
 create_generated_clock -name {inst|altpll_component|auto_generated|pll1|clk[0]} -source [get_pins {inst|altpll_component|auto_generated|pll1|inclk[0]}] -duty_cycle 50/1 -multiply_by 74 -divide_by 147 -master_clock {external_clock} [get_pins {inst|altpll_component|auto_generated|pll1|clk[0]}] 
 
+derive_clocks -period 100.0
+derive_pll_clocks
+derive_clock_uncertainty
 
 #**************************************************************
 # Set Clock Latency
