@@ -56,6 +56,7 @@ module m4_input (
 	 reg [9:0]  highestDotCount;
 	 reg screenMode;
 	 reg [3:0] kitctr;
+	 reg dot_r3;
 
 
  // parms
@@ -117,7 +118,7 @@ end
 
 always @(posedge ledsreg[20]) begin
     
-	 kitctr <= kitctr + 1;
+	 kitctr <= kitctr + 1'b1;
 	 if(kitctr > 9)
 	     kitctr <= 0;
 		  
@@ -171,17 +172,25 @@ end
 
 
 
-// main code block
 always @(posedge dotclk, posedge video)
+begin
+    if(video) 
+         dot_r2 <= 1'b1;
+	 else
+	      dot_r2 <= 1'b0;
+			
+	 dot_r3 <= dot_r2;
+end
+
+
+
+
+// main code block
+always @(posedge dotclk)
 		 begin
-			 if(video)                              // when video input shows a high signal, put a 1 in dot_r2 register
-				 begin
-						dot_r2 <= 1'b1;
-				 end
-			 else
 			    if(state_reg == NORMAL)             // if we're in NORMAL mode
 					 begin
-						 pixel_state = dot_r2;         // output pin for dual port ram set to whatever is in dot_r2
+						 pixel_state = dot_r3;         // output pin for dual port ram set to whatever is in dot_r2
 						 leds2 <= 0;                   // set Core Board LED2 on to indicate we are running in NORMAL mode
 						 memCtr<= 0;                   // set memCtr to 0 for later when we switch modes
 
@@ -199,7 +208,7 @@ always @(posedge dotclk, posedge video)
 										 if(highestDotCount < INCounterX)
 											  highestDotCount = INCounterX;
 											  										 
-										 INCounterX = 1'b0;
+										 INCounterX <= 1'b0;
 										 oldlinectr <= nextline_r2;						
 										 INCounterY <= INCounterY + 1'b1;
 								   end
@@ -209,13 +218,12 @@ always @(posedge dotclk, posedge video)
 									// pixel, and reset the dot_r2 video register back to black
 									begin
 										if(highestDotCount < 720)   // appears that it's 639 and 799 technically (80 column mode vs 64 column mode)
-											 calc = (800*INCounterY) + INCounterX + 16;       // 64 column mode shifting
+											 calc <= (800*INCounterY) + INCounterX + 16;       // 64 column mode shifting
 										else 
-											 calc = (800*(INCounterY-8)) + INCounterX - 71;   // 80 column mode shifting
+											 calc <= (800*(INCounterY-8)) + INCounterX - 70;   // 80 column mode shifting
 
-										waddr[17:0] = TRUNC'(calc);                          // set write address in dual port ram
-										INCounterX = INCounterX + 1'b1;                      // increment X counter
-										dot_r2 <= 1'b0;                                      // set dot register to zero
+										waddr[17:0] <= TRUNC'(calc);                          // set write address in dual port ram
+										INCounterX <= INCounterX + 1'b1;                      // increment X counter
 									end		  
 					 end
 				 else 
@@ -223,8 +231,8 @@ always @(posedge dotclk, posedge video)
 					  begin
 					      leds2 <= 1;                                                   // turn Core Board LED 2 off
 					      pixel_state <= 0;                                             // set pixel going to RAM to off
-							waddr[17:0] = TRUNC'(memCtr);                                 // set write address to memCtr
-							memCtr = memCtr + 1'b1;                                       // increment memCtr
+							waddr[17:0] <= TRUNC'(memCtr);                                 // set write address to memCtr
+							memCtr <= memCtr + 1'b1;                                       // increment memCtr
 					  end
 		  end
 endmodule
