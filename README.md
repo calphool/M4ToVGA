@@ -46,7 +46,7 @@ Below you see a graphic of the top module that ties together all the submodules.
 
 A few updates.  First, I bought a Nandland Go board because I like how the designer (Russell) has put together a lot of training material.  I am thinking of going through 
 his training projects to pick up tips / tricks.  No intent to convert the MXToVGA projects away from Altera, but I sure would like to get a more solid understanding of 
-how hardware engieners like Russell build rock solid projects.  Oh, I also updated all the code in this repo to use Russell's naming standard.  He's right, it makes the 
+how hardware engineers like Russell build rock solid projects.  Oh, I also updated all the code in this repo to use Russell's naming standard.  He's right, it makes the 
 code easier to understand.
 
 As you may have figured out, I have bifurcated the project into three separate repositories (M4ToVGA, M2ToVGA, and M3ToVGA).  M4ToVGA and M3ToVGA are known to be working.
