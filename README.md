@@ -42,6 +42,23 @@ Below you see a graphic of the top module that ties together all the submodules.
 
 ## Status
 
+**2021, April 18**
+
+A few updates.  First, I bought a Nandland Go board because I like how the designer (Russell) has put together a lot of training material.  I am thinking of going through 
+his training projects to pick up tips / tricks.  No intent to convert the MXToVGA projects away from Altera, but I sure would like to get a more solid understanding of 
+how hardware engieners like Russell build rock solid projects.  Oh, I also updated all the code in this repo to use Russell's naming standard.  He's right, it makes the 
+code easier to understand.
+
+As you may have figured out, I have bifurcated the project into three separate repositories (M4ToVGA, M2ToVGA, and M3ToVGA).  M4ToVGA and M3ToVGA are known to be working.
+M2ToVGA is *close* to working, but seems to still exhibit some jitter.  I am waiting to borrow an M2 from someone in order to work out what exactly is going on.  Since the 
+fix for the M3ToVGA from the M4ToVGA base code was to add another flip flop in the video input chain, I have little doubt that there is something similar going on somewhere,
+in the M2ToVGA code, but the trick is finding it, and that takes a degree of trial and error.  Once I get three separate repos that work (and thus can ship a working board for all three 
+systems), I will probably spend some time figuring out how I can merge the code bases.  They're *very* similar, so it seems reasonable that they could be merged, which 
+would be easier to maintain.  I also just bought some LM1881 sync splitter chips, and so I'll be embarking on an effort to figure out if it's possible to build a 
+VGA adapter for the Model 1 that does not require modifying the system.  In theory, if I can get the signals split out, then the exercise becomes similar to the MXToVGA 
+projects.  It would be nice to build it so that it doesn't need an external power source, and I think there's a +5V signal available in the video DIN, but I'm not sure 
+how much current can be drawn from it.
+
 **2021, February 20**
 
 Updated the M4ToVGA code to get rid of the top and bottom line.  Now it has a temporary logo that disappears after 10 seconds.

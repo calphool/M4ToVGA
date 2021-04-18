@@ -1,55 +1,55 @@
 /**************************************************************************************************
 **
 ** HSYNC Generator for 640 x 480 resolution.  Produces horizontal and vertical counters based on 
-** input clock (25.17MHZ clock produced by PLL and on-board oscillator)
+** input clock (25MHZ clock produced by PLL and on-board oscillator)
 **
 **************************************************************************************************/
 
 module hvsync_generator(
-    input clk,
-    output vga_h_sync,
-    output vga_v_sync,
-    output reg inDisplayArea,
-    output reg [9:0] HCounterX,
-    output reg [9:0] HCounterY
+    input  i_clk,
+    output o_vga_h_sync,
+    output o_vga_v_sync,
+    output reg o_inDisplayArea,
+    output reg [9:0] o_HCounterX,
+    output reg [9:0] o_HCounterY
   );
     reg vga_HS, vga_VS;
 
-    wire CounterXmaxed = (HCounterX == 800); // 16 + 48 + 96 + 640
-    wire CounterYmaxed = (HCounterY == 525); // 10 + 2 + 33 + 480
+    wire w_CounterXmaxed = (o_HCounterX == 800); // 16 + 48 + 96 + 640
+    wire w_CounterYmaxed = (o_HCounterY == 525); // 10 + 2 + 33 + 480
 
- always @(posedge clk)
+ always @(posedge i_clk)
 	 begin
-    if (CounterXmaxed)
-      HCounterX <= 0;
+    if (w_CounterXmaxed)
+      o_HCounterX <= 0;
     else
-      HCounterX <= (HCounterX + 1'b1);
+      o_HCounterX <= (o_HCounterX + 1'b1);
     end
 		
- always @(posedge clk)
+ always @(posedge i_clk)
     begin
-      if (CounterXmaxed)
+      if (w_CounterXmaxed)
       begin
-        if(CounterYmaxed)
-          HCounterY <= 0;
+        if(w_CounterYmaxed)
+          o_HCounterY <= 0;
         else
-          HCounterY <= (HCounterY + 1'b1);
+          o_HCounterY <= (o_HCounterY + 1'b1);
       end
     end
 
- always @(posedge clk)
+ always @(posedge i_clk)
     begin
-      vga_HS <= (HCounterX > (640 + 16) && (HCounterX < (640 + 16 + 96)));   // active for 96 clocks
-      vga_VS <= (HCounterY > (480 + 10) && (HCounterY < (480 + 10 + 2)));   // active for 2 clocks
+      vga_HS <= (o_HCounterX > (640 + 16) && (o_HCounterX < (640 + 16 + 96)));   // active for 96 clocks
+      vga_VS <= (o_HCounterY > (480 + 10) && (o_HCounterY < (480 + 10 + 2)));   // active for 2 clocks
     end
 
- always @(posedge clk)
+ always @(posedge i_clk)
     begin
-        inDisplayArea <= (HCounterX < 640) && (HCounterY < 480);
+        o_inDisplayArea <= (o_HCounterX < 640) && (o_HCounterY < 480);
     end
 
 	 
-    assign vga_h_sync = ~vga_HS;
-    assign vga_v_sync = ~vga_VS;
+    assign o_vga_h_sync = ~vga_HS;
+    assign o_vga_v_sync = ~vga_VS;
 
 endmodule

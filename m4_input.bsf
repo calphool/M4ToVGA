@@ -21,127 +21,122 @@ https://fpgasoftware.intel.com/eula.
 */
 (header "symbol" (version "1.1"))
 (symbol
-	(rect 16 16 216 224)
+	(rect 16 16 232 224)
 	(text "m4_input" (rect 5 0 42 12)(font "Arial" ))
 	(text "inst" (rect 8 192 20 204)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
-		(text "hsync" (rect 0 0 24 12)(font "Arial" ))
-		(text "hsync" (rect 21 27 45 39)(font "Arial" ))
+		(text "i_hsync" (rect 0 0 31 12)(font "Arial" ))
+		(text "i_hsync" (rect 21 27 52 39)(font "Arial" ))
 		(line (pt 0 32)(pt 16 32)(line_width 1))
 	)
 	(port
 		(pt 0 48)
 		(input)
-		(text "vsync" (rect 0 0 25 12)(font "Arial" ))
-		(text "vsync" (rect 21 43 46 55)(font "Arial" ))
+		(text "i_vsync" (rect 0 0 33 12)(font "Arial" ))
+		(text "i_vsync" (rect 21 43 54 55)(font "Arial" ))
 		(line (pt 0 48)(pt 16 48)(line_width 1))
 	)
 	(port
 		(pt 0 64)
 		(input)
-		(text "video" (rect 0 0 21 12)(font "Arial" ))
-		(text "video" (rect 21 59 42 71)(font "Arial" ))
+		(text "i_video" (rect 0 0 28 12)(font "Arial" ))
+		(text "i_video" (rect 21 59 49 71)(font "Arial" ))
 		(line (pt 0 64)(pt 16 64)(line_width 1))
 	)
 	(port
 		(pt 0 80)
 		(input)
-		(text "dotclk" (rect 0 0 22 12)(font "Arial" ))
-		(text "dotclk" (rect 21 75 43 87)(font "Arial" ))
+		(text "i_dotclk" (rect 0 0 29 12)(font "Arial" ))
+		(text "i_dotclk" (rect 21 75 50 87)(font "Arial" ))
 		(line (pt 0 80)(pt 16 80)(line_width 1))
 	)
 	(port
-		(pt 200 32)
+		(pt 216 32)
 		(output)
-		(text "waddr[17..0]" (rect 0 0 47 12)(font "Arial" ))
-		(text "waddr[17..0]" (rect 132 27 179 39)(font "Arial" ))
-		(line (pt 200 32)(pt 184 32)(line_width 3))
+		(text "o_waddr[17..0]" (rect 0 0 57 12)(font "Arial" ))
+		(text "o_waddr[17..0]" (rect 138 27 195 39)(font "Arial" ))
+		(line (pt 216 32)(pt 200 32)(line_width 3))
 	)
 	(port
-		(pt 200 48)
+		(pt 216 48)
 		(output)
-		(text "pixel_state" (rect 0 0 41 12)(font "Arial" ))
-		(text "pixel_state" (rect 138 43 179 55)(font "Arial" ))
-		(line (pt 200 48)(pt 184 48)(line_width 1))
+		(text "o_pixel_state" (rect 0 0 51 12)(font "Arial" ))
+		(text "o_pixel_state" (rect 144 43 195 55)(font "Arial" ))
+		(line (pt 216 48)(pt 200 48)(line_width 1))
 	)
 	(port
-		(pt 200 64)
+		(pt 216 64)
 		(output)
-		(text "wren" (rect 0 0 18 12)(font "Arial" ))
-		(text "wren" (rect 161 59 179 71)(font "Arial" ))
-		(line (pt 200 64)(pt 184 64)(line_width 1))
+		(text "o_wren" (rect 0 0 29 12)(font "Arial" ))
+		(text "o_wren" (rect 166 59 195 71)(font "Arial" ))
+		(line (pt 216 64)(pt 200 64)(line_width 1))
 	)
 	(port
-		(pt 200 80)
+		(pt 216 80)
 		(output)
-		(text "leds0" (rect 0 0 20 12)(font "Arial" ))
-		(text "leds0" (rect 159 75 179 87)(font "Arial" ))
-		(line (pt 200 80)(pt 184 80)(line_width 1))
+		(text "o_leds0" (rect 0 0 30 12)(font "Arial" ))
+		(text "o_leds0" (rect 165 75 195 87)(font "Arial" ))
+		(line (pt 216 80)(pt 200 80)(line_width 1))
 	)
 	(port
-		(pt 200 96)
+		(pt 216 96)
 		(output)
-		(text "leds1" (rect 0 0 18 12)(font "Arial" ))
-		(text "leds1" (rect 161 91 179 103)(font "Arial" ))
-		(line (pt 200 96)(pt 184 96)(line_width 1))
+		(text "o_leds1" (rect 0 0 29 12)(font "Arial" ))
+		(text "o_leds1" (rect 166 91 195 103)(font "Arial" ))
+		(line (pt 216 96)(pt 200 96)(line_width 1))
 	)
 	(port
-		(pt 200 112)
+		(pt 216 112)
 		(output)
-		(text "leds2" (rect 0 0 20 12)(font "Arial" ))
-		(text "leds2" (rect 159 107 179 119)(font "Arial" ))
-		(line (pt 200 112)(pt 184 112)(line_width 1))
+		(text "o_leds2" (rect 0 0 30 12)(font "Arial" ))
+		(text "o_leds2" (rect 165 107 195 119)(font "Arial" ))
+		(line (pt 216 112)(pt 200 112)(line_width 1))
 	)
 	(port
-		(pt 200 128)
+		(pt 216 128)
 		(output)
-		(text "leds3" (rect 0 0 20 12)(font "Arial" ))
-		(text "leds3" (rect 159 123 179 135)(font "Arial" ))
-		(line (pt 200 128)(pt 184 128)(line_width 1))
+		(text "o_leds3" (rect 0 0 30 12)(font "Arial" ))
+		(text "o_leds3" (rect 165 123 195 135)(font "Arial" ))
+		(line (pt 216 128)(pt 200 128)(line_width 1))
 	)
 	(port
-		(pt 200 144)
+		(pt 216 144)
 		(output)
-		(text "outputLEDA[9..0]" (rect 0 0 71 12)(font "Arial" ))
-		(text "outputLEDA[9..0]" (rect 108 139 179 151)(font "Arial" ))
-		(line (pt 200 144)(pt 184 144)(line_width 3))
+		(text "o_outputLEDA[9..0]" (rect 0 0 82 12)(font "Arial" ))
+		(text "o_outputLEDA[9..0]" (rect 113 139 195 151)(font "Arial" ))
+		(line (pt 216 144)(pt 200 144)(line_width 3))
 	)
 	(port
-		(pt 200 160)
+		(pt 216 160)
 		(output)
-		(text "outputLEDB[9..0]" (rect 0 0 69 12)(font "Arial" ))
-		(text "outputLEDB[9..0]" (rect 110 155 179 167)(font "Arial" ))
-		(line (pt 200 160)(pt 184 160)(line_width 3))
+		(text "o_outputLEDB[9..0]" (rect 0 0 80 12)(font "Arial" ))
+		(text "o_outputLEDB[9..0]" (rect 115 155 195 167)(font "Arial" ))
+		(line (pt 216 160)(pt 200 160)(line_width 3))
 	)
 	(parameter
-		"NORMAL"
+		"c_NORMAL"
 		"00"
 		""
 		(type "PARAMETER_UNSIGNED_BIN")	)
 	(parameter
-		"MEMCLEAR"
+		"c_MEMCLEAR"
 		"01"
 		""
 		(type "PARAMETER_UNSIGNED_BIN")	)
 	(parameter
-		"TRANSITION"
-		"10"
-		""
-		(type "PARAMETER_UNSIGNED_BIN")	)
-	(parameter
-		"SIXTYFOURCOLMODE"
+		"c_SIXTYFOURCOLMODE"
 		"1"
 		""
 		(type "PARAMETER_UNSIGNED_BIN")	)
 	(parameter
-		"EIGHTYCOLMODE"
+		"c_EIGHTYCOLMODE"
 		"0"
 		""
 		(type "PARAMETER_UNSIGNED_BIN")	)
 	(drawing
-		(rectangle (rect 16 16 184 192)(line_width 1))
+		(rectangle (rect 16 16 200 192)(line_width 1))
 	)
-	(annotation_block (parameter)(rect 216 -64 316 16))
+	(annotation_block (parameter)(rect 232 -64 332 16))
 )

@@ -1,25 +1,25 @@
 module LEDInverter (
-       inputbits,
-		 outputbits
+       i_inputbits,
+		 o_outputbits
        );
 		 
-   input [9:0] inputbits;
-   output logic [9:0] outputbits;
+   input [9:0] i_inputbits;
+   output logic [9:0] o_outputbits;
 	
 	
    
 	//assign outputbits = ~inputbits;
 	
-   assign outputbits[9] = ~inputbits[9];		 
-   assign outputbits[8] = ~inputbits[8];		 
-   assign outputbits[7] = ~inputbits[7];		 
-   assign outputbits[6] = ~inputbits[6];		 
-   assign outputbits[5] = ~inputbits[5];		 
-   assign outputbits[4] = ~inputbits[4];		 
-   assign outputbits[3] = ~inputbits[3];		 
-   assign outputbits[2] = ~inputbits[2];		 
-   assign outputbits[1] = ~inputbits[1];		 
-   assign outputbits[0] = ~inputbits[0];
+   assign o_outputbits[9] = ~i_inputbits[9];		 
+   assign o_outputbits[8] = ~i_inputbits[8];		 
+   assign o_outputbits[7] = ~i_inputbits[7];		 
+   assign o_outputbits[6] = ~i_inputbits[6];		 
+   assign o_outputbits[5] = ~i_inputbits[5];		 
+   assign o_outputbits[4] = ~i_inputbits[4];		 
+   assign o_outputbits[3] = ~i_inputbits[3];		 
+   assign o_outputbits[2] = ~i_inputbits[2];		 
+   assign o_outputbits[1] = ~i_inputbits[1];		 
+   assign o_outputbits[0] = ~i_inputbits[0];
 	
 		
 endmodule
