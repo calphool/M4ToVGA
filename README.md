@@ -17,10 +17,14 @@ Although I was able to get one of these circuits to work *more or less*, I was u
 The code has five main blocks (or modules).  
 
 * It has a "top" module whose job is to stitch all the submodules together into a meaningful circuit.  
-* The submodules include a PLL based clock for the VGA signal (25.17MHZ for a conformant 640x480 resolution).  
+* The submodules include a PLL based clock for the VGA signal (25MHZ for 640x480 resolution).  
 * The next submodule is a framebuffer that is 153,600 x 1 bits, which works to store a 640 x 240 array of pixels, the maximum resolution of a TRS-80 Model 3/4.  Those two submodules were generated in Quartus II using wizards.  
 * Next is a VGA output module whose job is to take in the VGA clock and continuously scan through the framebuffer and display what it sees there.  It has a sub-sub-module whose job is to produce vga hsync and vsync as well as inform the VGA output module when the signal is "in the display zone," as opposed to one of the vertical or horizontal blank areas.
 * Finally is the m4_input module, whose job is to monitor the Model 3/Model 4 hsync, vsync, dot clock, and video signals, interpret them, and turn them into bits (pixels) in the dual port frame buffer.
+ The dotclk signal was actually removed in the M3 code because we don't need it. The M3 only has one resolution and we can synthesize the dotclk and keep it in aligned using 
+hsync.  It is *probably* possible to remove it for the M4 as well, but I would have to contend with the fact that the dot clock changes due to the M4's ability to switch between 64 and 80 column mode.
+
+
 
 ## Details
 
@@ -54,10 +58,12 @@ M2ToVGA is *close* to working, but seems to still exhibit some jitter.  I am wai
 fix for the M3ToVGA from the M4ToVGA base code was to add another flip flop in the video input chain, I have little doubt that there is something similar going on somewhere,
 in the M2ToVGA code, but the trick is finding it, and that takes a degree of trial and error.  Once I get three separate repos that work (and thus can ship a working board for all three 
 systems), I will probably spend some time figuring out how I can merge the code bases.  They're *very* similar, so it seems reasonable that they could be merged, which 
-would be easier to maintain.  I also just bought some LM1881 sync splitter chips, and so I'll be embarking on an effort to figure out if it's possible to build a 
+would be easier to maintain.  
+
+I also just bought some LM1881 sync splitter chips, and so I'll be embarking on an effort to figure out if it's possible to build a 
 VGA adapter for the Model 1 that does not require modifying the system.  In theory, if I can get the signals split out, then the exercise becomes similar to the MXToVGA 
 projects.  It would be nice to build it so that it doesn't need an external power source, and I think there's a +5V signal available in the video DIN, but I'm not sure 
-how much current can be drawn from it.
+how much current can be drawn from it.  More details later.
 
 **2021, February 20**
 
