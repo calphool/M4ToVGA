@@ -49,7 +49,7 @@ his training projects to pick up tips / tricks.  No intent to convert the MXToVG
 how hardware engineers like Russell build rock solid projects.  Oh, I also updated all the code in this repo to use Russell's naming standard.  He's right, it makes the 
 code easier to understand.
 
-As you may have figured out, I have bifurcated the project into three separate repositories (M4ToVGA, M2ToVGA, and M3ToVGA).  M4ToVGA and M3ToVGA are known to be working.
+As you may have figured out, I have bifurcated (trifurcated?) the project into three separate repositories (M4ToVGA, M2ToVGA, and M3ToVGA).  M4ToVGA and M3ToVGA are known to be working.
 M2ToVGA is *close* to working, but seems to still exhibit some jitter.  I am waiting to borrow an M2 from someone in order to work out what exactly is going on.  Since the 
 fix for the M3ToVGA from the M4ToVGA base code was to add another flip flop in the video input chain, I have little doubt that there is something similar going on somewhere,
 in the M2ToVGA code, but the trick is finding it, and that takes a degree of trial and error.  Once I get three separate repos that work (and thus can ship a working board for all three 
